@@ -1,6 +1,6 @@
 {
   "name": "@trueadmin/web-antd",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Ant Design components for TrueAdmin web applications.",
   "license": "MIT",
   "repository": {
@@ -20,6 +20,14 @@
     "./action": {
       "types": "./src/action/index.d.ts",
       "default": "./src/action/index.js"
+    },
+    "./filter": {
+      "types": "./src/filter/index.d.ts",
+      "default": "./src/filter/index.js"
+    },
+    "./remote-select": {
+      "types": "./src/remote-select/index.d.ts",
+      "default": "./src/remote-select/index.js"
     }
   },
   "files": [
