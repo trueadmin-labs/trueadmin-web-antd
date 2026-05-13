@@ -21,9 +21,48 @@ export function TrueAdminActionBar({
   dropdownProps,
   spaceProps,
 }) {
+  const { message, modal } = App.useApp();
   const visibleActions = actions.filter((action) => action.visible !== false);
   const primaryActions = max === undefined ? visibleActions : visibleActions.slice(0, max);
   const moreActions = max === undefined ? [] : visibleActions.slice(max);
+
+  const runAction = async (action, event) => {
+    try {
+      await action.onClick?.(event);
+      if (action.successMessage) {
+        message.success(action.successMessage);
+      }
+      action.onSuccess?.();
+    } catch (error) {
+      if (action.errorMessage) {
+        message.error(action.errorMessage);
+      }
+      action.onError?.(error);
+    }
+  };
+
+  const confirmAction = (action, event) => {
+    const mergedConfirmProps = isPopconfirmProps(action.confirm)
+      ? { ...action.confirmProps, ...action.confirm }
+      : { ...action.confirmProps, title: action.confirm };
+
+    modal.confirm({
+      ...mergedConfirmProps,
+      onOk: async (...args) => {
+        await runAction(action, event);
+        return mergedConfirmProps.onOk?.(...args);
+      },
+    });
+  };
+
+  const clickAction = (action, event) => {
+    if (action.confirm) {
+      confirmAction(action, event);
+      return;
+    }
+
+    void runAction(action, event);
+  };
 
   return jsx(Space, {
     size: 8,
@@ -38,21 +77,70 @@ export function TrueAdminActionBar({
     style: { ...styles?.root, ...style, ...spaceProps?.style },
     children: [
       children,
-      ...primaryActions.map(({ key, label, visible: _visible, ...buttonProps }) =>
-        jsx(
-          Button,
-          {
-            ...buttonProps,
-            className: joinClassNames(
-              'trueadmin-action-bar-item',
-              classNames?.primary,
-              buttonProps.className,
-            ),
-            style: { ...styles?.primary, ...buttonProps.style },
-            children: label,
-          },
+      ...primaryActions.map(
+        ({
           key,
-        ),
+          label,
+          visible: _visible,
+          confirm,
+          confirmProps,
+          errorMessage,
+          successMessage,
+          onError,
+          onSuccess,
+          onClick,
+          ...buttonProps
+        }) =>
+          confirm
+            ? jsx(
+                TrueAdminConfirmAction,
+                {
+                  ...buttonProps,
+                  action: async () => {
+                    await runAction(
+                      {
+                        key,
+                        label,
+                        confirm,
+                        confirmProps,
+                        errorMessage,
+                        successMessage,
+                        onError,
+                        onSuccess,
+                        onClick,
+                      },
+                      undefined,
+                    );
+                  },
+                  className: joinClassNames(
+                    'trueadmin-action-bar-item',
+                    classNames?.primary,
+                    buttonProps.className,
+                  ),
+                  confirm,
+                  confirmProps,
+                  errorMessage: false,
+                  successMessage: false,
+                  style: { ...styles?.primary, ...buttonProps.style },
+                  children: label,
+                },
+                key,
+              )
+            : jsx(
+                Button,
+                {
+                  ...buttonProps,
+                  className: joinClassNames(
+                    'trueadmin-action-bar-item',
+                    classNames?.primary,
+                    buttonProps.className,
+                  ),
+                  onClick: (event) => clickAction({ key, label, onClick, successMessage, errorMessage, onSuccess, onError }, event),
+                  style: { ...styles?.primary, ...buttonProps.style },
+                  children: label,
+                },
+                key,
+              ),
       ),
       moreActions.length
         ? jsx(Dropdown, {
@@ -61,14 +149,42 @@ export function TrueAdminActionBar({
             menu: {
               ...dropdownProps?.menu,
               items: moreActions.map(
-                ({ key, label, visible: _visible, onClick, disabled, danger }) => ({
+                ({
+                  key,
+                  label,
+                  visible: _visible,
+                  onClick,
+                  disabled,
+                  danger,
+                  icon,
+                  confirm,
+                  confirmProps,
+                  errorMessage,
+                  successMessage,
+                  onError,
+                  onSuccess,
+                }) => ({
                   key: String(key),
                   label,
                   disabled,
                   danger,
+                  icon,
                   onClick: onClick
                     ? (event) => {
-                        onClick(event);
+                        clickAction(
+                          {
+                            key,
+                            label,
+                            confirm,
+                            confirmProps,
+                            errorMessage,
+                            successMessage,
+                            onError,
+                            onSuccess,
+                            onClick,
+                          },
+                          event,
+                        );
                       }
                     : undefined,
                 }),
@@ -150,7 +266,7 @@ export function TrueAdminConfirmAction({
 
     return jsx(Button, {
       ...buttonProps,
-      disabled,
+      disabled: mergedDisabled,
       loading: mergedLoading,
       onClick,
       children,

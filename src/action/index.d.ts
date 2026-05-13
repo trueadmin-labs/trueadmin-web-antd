@@ -5,9 +5,15 @@ export type TrueAdminActionItem = Omit<ButtonProps, 'children' | 'onClick'> & {
   key: Key;
   label: ReactNode;
   visible?: boolean;
+  confirm?: ReactNode | PopconfirmProps;
+  confirmProps?: Omit<PopconfirmProps, 'children' | 'onConfirm' | 'open' | 'title'>;
+  errorMessage?: ReactNode | false;
+  successMessage?: ReactNode | false;
   onClick?: (
     event: MouseEvent<HTMLElement> | Parameters<NonNullable<MenuProps['onClick']>>[0],
-  ) => void;
+  ) => unknown | Promise<unknown>;
+  onError?: (error: unknown) => void;
+  onSuccess?: () => void;
 };
 
 export type TrueAdminActionBarClassNames = {

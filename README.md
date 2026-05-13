@@ -19,6 +19,7 @@ Components in this package are reusable UI adapters. They can render Ant Design 
 Allowed examples:
 
 - action buttons and confirm wrappers
+- action overflow menus with caller-provided confirm and feedback behavior
 - quick filters and tree filters
 - remote option selectors with caller-provided fetching
 - class name, style, render hook, and pass-through props for customization
