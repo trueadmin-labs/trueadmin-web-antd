@@ -1,0 +1,8 @@
+.trueadmin-remote-select-loading {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--ant-color-text-secondary);
+}

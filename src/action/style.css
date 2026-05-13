@@ -1,0 +1,7 @@
+.trueadmin-action-bar {
+  min-width: 0;
+}
+
+.trueadmin-action-bar .ant-space-item {
+  display: inline-flex;
+}

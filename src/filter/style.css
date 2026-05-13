@@ -1,0 +1,170 @@
+.trueadmin-quick-filter {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+}
+
+.trueadmin-quick-filter.is-block {
+  display: grid;
+  align-items: stretch;
+  gap: 10px;
+  padding: 12px;
+}
+
+.trueadmin-quick-filter-header {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.trueadmin-quick-filter-extra {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+.trueadmin-quick-filter-segmented.ant-segmented {
+  width: auto;
+  max-width: 100%;
+}
+
+.trueadmin-quick-filter.is-block .trueadmin-quick-filter-segmented.ant-segmented {
+  width: 100%;
+}
+
+.trueadmin-quick-filter.is-block .trueadmin-quick-filter-segmented .ant-segmented-group {
+  display: grid;
+  gap: 4px;
+}
+
+.trueadmin-quick-filter-segmented .ant-segmented-item {
+  min-width: 0;
+}
+
+.trueadmin-quick-filter-segmented .ant-segmented-item-label {
+  min-height: 30px;
+  padding-inline: 10px;
+}
+
+.trueadmin-quick-filter-option {
+  position: relative;
+  display: inline-flex;
+  min-width: 0;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.trueadmin-quick-filter.is-block .trueadmin-quick-filter-option {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.trueadmin-quick-filter-option-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+.trueadmin-quick-filter-option-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trueadmin-quick-filter.is-block .trueadmin-quick-filter-option-label {
+  flex: 1 1 auto;
+  text-align: start;
+}
+
+.trueadmin-quick-filter-option-count.ant-tag {
+  min-width: 18px;
+  flex: 0 0 auto;
+  margin-inline-end: 0;
+  padding-inline: 5px;
+  border-color: var(--trueadmin-color-primary-border, rgba(22, 119, 255, 0.32));
+  border-radius: 10px;
+  color: var(--trueadmin-color-primary, #1677ff);
+  background: var(--trueadmin-color-primary-bg, rgba(22, 119, 255, 0.08));
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.trueadmin-tree-filter {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+}
+
+.trueadmin-tree-filter-header {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.trueadmin-tree-filter-extra {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+.trueadmin-tree-filter-search.ant-input-search {
+  flex: 0 0 auto;
+}
+
+.trueadmin-tree-filter-tree.ant-tree {
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow: auto;
+  background: transparent;
+}
+
+.trueadmin-tree-filter-tree .ant-tree-treenode {
+  width: 100%;
+}
+
+.trueadmin-tree-filter-tree .ant-tree-node-content-wrapper {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.trueadmin-tree-filter-node {
+  display: flex;
+  min-width: 0;
+  width: 100%;
+  align-items: center;
+  gap: 6px;
+}
+
+.trueadmin-tree-filter-node-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+.trueadmin-tree-filter-node-label {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trueadmin-tree-filter-empty.ant-empty {
+  min-height: 0;
+  flex: 1 1 auto;
+  margin: 16px 0;
+}
